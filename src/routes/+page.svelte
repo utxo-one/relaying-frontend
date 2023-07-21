@@ -1,59 +1,34 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
-</script>
-
-<svelte:head>
+	function handleLogin() {
+	  if (window.nostr && window.nostr.getPublicKey) {
+		const publicKey = window.nostr.getPublicKey();
+		console.log('Public Key:', publicKey);
+	  } else {
+		console.log('window.nost.getPublicKey() object not found.');
+	  }
+	}
+  </script>
+  
+  <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
+  </svelte:head>
+  
+  <section>
+	<div class="min-h-screen flex items-center justify-center">
+		<div class="text-center">
+		  <h1 class="text-4xl text-purple-800 font-bold mb-4">Relaying.io</h1>
+		  <h2 class="text-2xl text-purple-500 mb-8">Not your relay, not your note.</h2>
+		  <button class="px-8 py-4 bg-purple-700 text-white rounded-lg" on:click={handleLogin}>
+			Login with Nostr 🤙
+		  </button>
+		</div>
+	  </div>
+  </section>
+  
+  <style lang="postcss">
+	:global(html) {
+	  background-color: theme(colors.purple.100);
 	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+  </style>
+  
